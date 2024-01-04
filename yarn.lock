@@ -3173,11 +3173,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 20.10.5
-  resolution: "@types/node@npm:20.10.5"
+  version: 20.10.6
+  resolution: "@types/node@npm:20.10.6"
   dependencies:
     undici-types: ~5.26.4
-  checksum: e216b679f545a8356960ce985a0e53c3a58fff0eacd855e180b9e223b8db2b5bd07b744a002b8c1f0c37f9194648ab4578533b5c12df2ec10cc02f61d20948d2
+  checksum: ada40e4ccbda3697dca88f8d13f4c996c493be6fbc15f5f5d3b91096d56bd700786a2c148a92a2b4c5d1f133379e63f754a786b3aebfc6a7d09fc7ea16dc017b
   languageName: node
   linkType: hard
 
@@ -3239,16 +3239,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.0.8":
-  version: 18.0.8
-  resolution: "@types/react-dom@npm:18.0.8"
+"@types/react-dom@npm:latest":
+  version: 18.2.18
+  resolution: "@types/react-dom@npm:18.2.18"
   dependencies:
     "@types/react": "*"
-  checksum: 522e5e949d05f35c6037a2290838c9c7ff92a9d06f7d96b993c7c3f5a86d8f3a6337e059c94e6fb0920227f445e5d1ce10fbfe3d9bbd95fb82a5539249d90646
+  checksum: 8e3da404c980e2b2a76da3852f812ea6d8b9d0e7f5923fbaf3bfbbbfa1d59116ff91c129de8f68e9b7668a67ae34484fe9df74d5a7518cf8591ec07a0c4dad57
   languageName: node
   linkType: hard
 
-"@types/react@npm:*":
+"@types/react@npm:*, @types/react@npm:latest":
   version: 18.2.46
   resolution: "@types/react@npm:18.2.46"
   dependencies:
@@ -3256,17 +3256,6 @@ __metadata:
     "@types/scheduler": "*"
     csstype: ^3.0.2
   checksum: cb0e4dc7f41988a059e1246a19ec377101f5b16097ec4bf7000ef3c431ec0c8c873f40e95075821f908db1f4e3352775f0f18cea53dcad14dce67c0f5110f2bd
-  languageName: node
-  linkType: hard
-
-"@types/react@npm:18.0.25":
-  version: 18.0.25
-  resolution: "@types/react@npm:18.0.25"
-  dependencies:
-    "@types/prop-types": "*"
-    "@types/scheduler": "*"
-    csstype: ^3.0.2
-  checksum: 231d658c45abdef044a716b4502774f1585d8336d73b2f5bd68f181acbfc874b7a457686ecd29b415b43ed0922c309bab7e2cf96832d188a3f4f1b02f2af760a
   languageName: node
   linkType: hard
 
@@ -4030,13 +4019,13 @@ __metadata:
   linkType: hard
 
 "axios@npm:^1.5.1":
-  version: 1.6.3
-  resolution: "axios@npm:1.6.3"
+  version: 1.6.4
+  resolution: "axios@npm:1.6.4"
   dependencies:
-    follow-redirects: ^1.15.0
+    follow-redirects: ^1.15.4
     form-data: ^4.0.0
     proxy-from-env: ^1.1.0
-  checksum: 07ef3bb83fc2dacc1ae2c97f2bbd04ef7701f5655f9037789d79ee78b698ffa50eaa8465c2017d4d3e9ce7d94cb779f730acaab32ce9036d0a4933c1e89df4da
+  checksum: 48d8af8488ac7402fae312437c0189b3b609a472fca2f7fc796129c804d98520589b6317096eba8509711d49f855a3f620b6a24ff23acd73ac26433d0383b8f9
   languageName: node
   linkType: hard
 
@@ -4635,9 +4624,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001406, caniuse-lite@npm:^1.0.30001565":
-  version: 1.0.30001572
-  resolution: "caniuse-lite@npm:1.0.30001572"
-  checksum: 7d017a99a38e29ccee4ed3fc0ef1eb90cf082fcd3a7909c5c536c4ba1d55c5b26ecc1e4ad82c1caa6bfadce526764b354608710c9b61a75bdc7ce8ca15c5fcf2
+  version: 1.0.30001574
+  resolution: "caniuse-lite@npm:1.0.30001574"
+  checksum: 4064719755371a9716446ee79714ff5cee347861492d6325c2e3db00c37cb27f184742f53f2b6e4c15cc2e1a47fae32cc44c9b15e957a9290982bf4108933245
   languageName: node
   linkType: hard
 
@@ -5685,9 +5674,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.601":
-  version: 1.4.616
-  resolution: "electron-to-chromium@npm:1.4.616"
-  checksum: 9fd53bd4e5cded61ee51164a0d23ced1d7677ab176ef8e28eb4a27ceaae1deb3bb0038024db48478507204bfcd48ef66866c078721915a9c7b019697cc5680bf
+  version: 1.4.620
+  resolution: "electron-to-chromium@npm:1.4.620"
+  checksum: 99c213f6dc504e106acd2d7df02fd65f92e2e19c1e9163c6257247921d0afb68f50a30aa9a8ad76695ebc8572b76a9ff65af8145acf4e1f47d7a043706c3ce58
   languageName: node
   linkType: hard
 
@@ -6800,13 +6789,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.12.1, follow-redirects@npm:^1.14.9, follow-redirects@npm:^1.15.0":
-  version: 1.15.3
-  resolution: "follow-redirects@npm:1.15.3"
+"follow-redirects@npm:^1.12.1, follow-redirects@npm:^1.14.9, follow-redirects@npm:^1.15.4":
+  version: 1.15.4
+  resolution: "follow-redirects@npm:1.15.4"
   peerDependenciesMeta:
     debug:
       optional: true
-  checksum: 584da22ec5420c837bd096559ebfb8fe69d82512d5585004e36a3b4a6ef6d5905780e0c74508c7b72f907d1fa2b7bd339e613859e9c304d0dc96af2027fd0231
+  checksum: e178d1deff8b23d5d24ec3f7a94cde6e47d74d0dc649c35fc9857041267c12ec5d44650a0c5597ef83056ada9ea6ca0c30e7c4f97dbf07d035086be9e6a5b7b6
   languageName: node
   linkType: hard
 
@@ -9486,8 +9475,8 @@ __metadata:
     "@semaphore-protocol/group": 3.15.1
     "@semaphore-protocol/identity": 3.15.1
     "@semaphore-protocol/proof": 3.15.1
-    "@types/react": 18.0.25
-    "@types/react-dom": 18.0.8
+    "@types/react": latest
+    "@types/react-dom": latest
     dotenv: ^16.0.3
     ethers: ^5.7.2
     next: 13.0.3
