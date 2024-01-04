@@ -34,7 +34,7 @@ function getNetworks(): NetworksUserConfig {
             accounts
         },
         mumbai: {
-            url: `https://polygon-mumbai.infura.io/v3/${infuraApiKey}`,
+            url: ProcessingInstruction.env.MUMBAI_RPC,
             chainId: 80001,
             accounts
         },
