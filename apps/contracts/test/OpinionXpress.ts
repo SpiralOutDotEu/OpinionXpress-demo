@@ -1,11 +1,9 @@
 import { Group } from "@semaphore-protocol/group"
 import { Identity } from "@semaphore-protocol/identity"
-import { generateProof } from "@semaphore-protocol/proof"
 import { expect } from "chai"
 import { run, ethers } from "hardhat"
 // @ts-ignore: typechain folder will be generated after contracts compilation
 import { OpinionXpress } from "../build/typechain"
-import { config } from "../package.json"
 
 describe("OpinionXpress", () => {
     let opinionXpress: OpinionXpress
@@ -129,5 +127,4 @@ describe("OpinionXpress", () => {
                 .withArgs(groupId, 1, users[1].commitment, newIdentity.commitment, root)
         })
     })
-
 })
