@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { ethers } from "ethers"
-import { OPINIONXPRESS_ADDRESS, REQUIRED_NETWORK } from "./constants"
+import { OPINIONXPRESS_ADDRESS, REQUIRED_NETWORK } from "../../../constants"
 import OpinionXpressAbi from "./OpinionXpress.json"
 
 const OpinionXpressGroupsComponent = () => {
