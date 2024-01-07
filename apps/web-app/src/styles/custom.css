@@ -1,4 +1,4 @@
-.identity-container {
+.container {
     font-family: 'Arial', sans-serif;
     max-width: 800px;
     margin: auto;
@@ -7,14 +7,14 @@
     border-radius: 8px;
   }
   
-  .identity-info {
+  .info {
     background-color: #f3f4f6;
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 20px;
   }
   
-  .identity-value {
+  .value {
     color: #4a90e2;
     font-weight: bold;
     word-break: break-all;

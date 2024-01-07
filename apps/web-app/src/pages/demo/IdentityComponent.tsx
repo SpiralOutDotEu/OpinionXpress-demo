@@ -35,14 +35,15 @@ const IdentityComponent: React.FC = () => {
   };
 
   return (
-    <div className="identity-container">
+    <div className="container">
+      <h1>Identity Management</h1>
       <p className='explanation'> Identities are triplets of keys called `Trapdoor`, `Nullifier` and `Commitment`. The first two should be kept private while commitment can be publicly shared. In this example, an identity can be generated, stored and retrieved from browsers storage </p>
       {identity ? (
-        <div className="identity-info">
+        <div className="info">
           <p className='success-message'>Identity Loaded</p>
-          <p>Trapdoor: <span className="identity-value">{identity.trapdoor.toString()}</span></p>
-          <p>Nullifier: <span className="identity-value">{identity.nullifier.toString()}</span></p>
-          <p>Commitment: <span className="identity-value">{identity.commitment.toString()}</span></p>
+          <p>Trapdoor: <span className="value">{identity.trapdoor.toString()}</span></p>
+          <p>Nullifier: <span className="value">{identity.nullifier.toString()}</span></p>
+          <p>Commitment: <span className="value">{identity.commitment.toString()}</span></p>
         </div>
       ) : (
         <p className="no-identity">No identity found. Generate one and it will be stored in browser storage</p>
