@@ -8,6 +8,7 @@
         "compile": "hardhat compile",
         "download:snark-artifacts": "hardhat run scripts/download-snark-artifacts.ts",
         "deploy": "yarn compile && hardhat deploy",
+        "deploy-opinion": "yarn compile && hardhat deploy-opinion",
         "test": "hardhat run scripts/download-snark-artifacts.ts && hardhat test",
         "test:report-gas": "REPORT_GAS=true hardhat test",
         "test:coverage": "hardhat coverage",
@@ -40,6 +41,7 @@
         "typechain": "^8.0.0"
     },
     "dependencies": {
+        "@openzeppelin/contracts": "4.7.3",
         "@semaphore-protocol/contracts": "3.15.1"
     },
     "config": {
