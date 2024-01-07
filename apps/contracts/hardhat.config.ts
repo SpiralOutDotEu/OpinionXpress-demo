@@ -11,6 +11,7 @@ import { resolve } from "path"
 import "solidity-coverage"
 import { config } from "./package.json"
 import "./tasks/deploy"
+import "./tasks/deploy-opinion"
 
 dotenvConfig({ path: resolve(__dirname, "../../.env") })
 
@@ -34,7 +35,7 @@ function getNetworks(): NetworksUserConfig {
             accounts
         },
         mumbai: {
-            url: ProcessingInstruction.env.MUMBAI_RPC,
+            url: `https://polygon-mumbai.g.alchemy.com/v2/${infuraApiKey}`,
             chainId: 80001,
             accounts
         },
@@ -57,7 +58,12 @@ function getNetworks(): NetworksUserConfig {
 }
 
 const hardhatConfig: HardhatUserConfig = {
-    solidity: config.solidity,
+    solidity: {
+        compilers: [
+            { version: "0.8.4" },
+            { version: "0.8.20", settings: {} },
+        ],
+    },
     paths: {
         sources: config.paths.contracts,
         tests: config.paths.tests,
