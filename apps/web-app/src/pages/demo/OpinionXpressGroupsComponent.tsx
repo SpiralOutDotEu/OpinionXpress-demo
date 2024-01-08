@@ -79,7 +79,7 @@ const OpinionXpressGroupsComponent = () => {
             {isCorrectNetwork ? (
                 <p className="success-message">Correct network.</p>
             ) : (
-                <p className="warning-text">Please connect to the correct network.</p>
+                <p className="error-message">Please connect to the correct network.</p>
             )}
 
             <div className="info-box">
