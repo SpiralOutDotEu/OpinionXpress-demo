@@ -22,14 +22,16 @@ const nextConfig = withPWA({
         INFURA_API_KEY: process.env.INFURA_API_KEY,
         ETHEREUM_PRIVATE_KEY: process.env.ETHEREUM_PRIVATE_KEY,
         FEEDBACK_CONTRACT_ADDRESS: process.env.FEEDBACK_CONTRACT_ADDRESS,
-        SEMAPHORE_CONTRACT_ADDRESS: process.env.SEMAPHORE_CONTRACT_ADDRESS
+        SEMAPHORE_CONTRACT_ADDRESS: process.env.SEMAPHORE_CONTRACT_ADDRESS,
+        NETWORK_RPC: process.env.NETWORK_RPC
     },
     publicRuntimeConfig: {
         DEFAULT_NETWORK: process.env.DEFAULT_NETWORK,
         FEEDBACK_CONTRACT_ADDRESS: process.env.FEEDBACK_CONTRACT_ADDRESS,
         SEMAPHORE_CONTRACT_ADDRESS: process.env.SEMAPHORE_CONTRACT_ADDRESS,
         OPENZEPPELIN_AUTOTASK_WEBHOOK: process.env.OPENZEPPELIN_AUTOTASK_WEBHOOK,
-        GROUP_ID: process.env.GROUP_ID
+        GROUP_ID: process.env.GROUP_ID,
+        NETWORK_RPC: process.env.NETWORK_RPC
     },
     webpack: (config, { isServer }) => {
         if (!isServer) {
