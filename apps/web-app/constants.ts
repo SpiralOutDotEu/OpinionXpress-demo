@@ -1,2 +1,2 @@
 export const OPINIONXPRESS_ADDRESS = "0x090B36e7aaEdA4EF8BEeA0f3ba64b2F34127e41a";
-export const REQUIRED_NETWORK = 80001; // Mumbai
+export const REQUIRED_NETWORK_ID = 80001; // Mumbai
