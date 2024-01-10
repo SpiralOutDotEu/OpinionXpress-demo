@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { ethers } from "ethers"
-import { OPINIONXPRESS_ADDRESS, REQUIRED_NETWORK } from "../../../constants"
+import { OPINIONXPRESS_ADDRESS, REQUIRED_NETWORK_ID } from "../../../constants"
 import OpinionXpressAbi from "./OpinionXpress.json"
 
 const OpinionXpressGroupsComponent = () => {
@@ -13,7 +13,7 @@ const OpinionXpressGroupsComponent = () => {
 
     const checkNetwork = async () => {
         const network = await provider?.getNetwork()
-        setIsCorrectNetwork(network?.chainId === REQUIRED_NETWORK)
+        setIsCorrectNetwork(network?.chainId === REQUIRED_NETWORK_ID)
     }
 
     const connectWallet = async () => {
@@ -79,7 +79,7 @@ const OpinionXpressGroupsComponent = () => {
             {isCorrectNetwork ? (
                 <p className="success-message">Correct network.</p>
             ) : (
-                <p className="warning-text">Please connect to the correct network.</p>
+                <p className="error-message">Please connect to the correct network.</p>
             )}
 
             <div className="info-box">
