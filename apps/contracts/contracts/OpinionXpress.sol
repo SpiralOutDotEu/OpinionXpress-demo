@@ -2,15 +2,34 @@
 pragma solidity ^0.8.4;
 
 import "@semaphore-protocol/contracts/interfaces/ISemaphore.sol";
+import "@semaphore-protocol/contracts/interfaces/ISemaphoreVerifier.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract OpinionXpress is Ownable {
     ISemaphore public semaphore;
+    ISemaphoreVerifier public verifier;
+
+    enum PollState {
+        Created,
+        Ongoing,
+        Ended
+    }
 
     struct Group {
         bool isActive;
+        uint256 depth;
     }
 
+    struct Poll {
+        PollState state;
+        uint32 yesCounter;
+        uint32 noCounter;
+        string text;
+        mapping(uint256 => bool) nullifierHashes;
+        mapping(uint256 => bool) groupsAllowed;
+    }
+
+    mapping(uint256 => Poll) public polls;
     mapping(uint256 => Group) public groups;
     address public groupAdmin;
     address public voteAdmin;
@@ -18,9 +37,12 @@ contract OpinionXpress is Ownable {
     event GroupCreated(uint256 groupId);
     event GroupAdminChanged(address newAdmin);
     event VoteAdminChanged(address newAdmin);
+    event PollCreated(uint256 pollId, string text);
+    event VoteCasted(uint256 pollId, uint256 vote);
 
-    constructor(address semaphoreAddress) {
+    constructor(address semaphoreAddress, address verifierAddress) {
         semaphore = ISemaphore(semaphoreAddress);
+        verifier = ISemaphoreVerifier(verifierAddress);
         groupAdmin = msg.sender;
         voteAdmin = msg.sender;
     }
@@ -38,8 +60,61 @@ contract OpinionXpress is Ownable {
     function createGroup(uint256 groupId, uint256 depth) external onlyOwner {
         require(!groups[groupId].isActive, "Group already exists");
         groups[groupId].isActive = true;
+        groups[groupId].depth = depth;
         semaphore.createGroup(groupId, depth, address(this), 10 ^ 18 weeks);
         emit GroupCreated(groupId);
+    }
+
+    function createPoll(uint256 pollId, string calldata _text, uint256[] calldata groupIds) external onlyOwner {
+        require(bytes(_text).length > 0, "Poll text cannot be empty");
+        Poll storage poll = polls[pollId];
+        require(bytes(polls[pollId].text).length == 0, "Poll already exists");
+
+        // Initialize the Poll
+        poll.state = PollState.Created;
+        poll.text = _text;
+        for (uint256 i = 0; i < groupIds.length; i++) {
+            require(groups[groupIds[i]].isActive, "Group doesn't exists");
+            poll.groupsAllowed[groupIds[i]] = true;
+        }
+        emit PollCreated(pollId, _text);
+    }
+
+    function isGroupAllowed(uint256 pollId, uint256 groupId) public view returns (bool) {
+        return polls[pollId].groupsAllowed[groupId];
+    }
+
+    function isNullifierUsed(uint256 pollId, uint256 nullifierHash) public view returns (bool) {
+        return polls[pollId].nullifierHashes[nullifierHash];
+    }
+
+    function getVotes(uint256 pollId) public view returns (uint32[] memory) {
+        uint32[] memory votes = new uint32[](2);
+        votes[0] = polls[pollId].yesCounter;
+        votes[1] = polls[pollId].noCounter;
+        return votes;
+    }
+
+    function castVote(
+        uint8 vote,
+        uint256 merkleTreeRoot,
+        uint256 nullifierHash,
+        uint256 pollId,
+        uint256[8] calldata proof,
+        uint256 groupId
+    ) external {
+        require(vote < 2, "Vote > 1");
+        require(isGroupAllowed(pollId, groupId), "Group not allowed");
+        require(!isNullifierUsed(pollId, nullifierHash), "Used Nullifier");
+        verifier.verifyProof(merkleTreeRoot, nullifierHash, vote, pollId, proof, groups[groupId].depth);
+        polls[pollId].nullifierHashes[nullifierHash] = true;
+        if (vote == 0) {
+            polls[pollId].noCounter += 1;
+        }
+        if (vote == 1) {
+            polls[pollId].yesCounter += 1;
+        }
+        emit VoteCasted(pollId, vote);
     }
 
     function changeGroupAdmin(address newAdmin) external onlyOwner {
