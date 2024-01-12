@@ -2,20 +2,28 @@ import { task, types } from "hardhat/config"
 
 task("deploy-opinion", "Deploy a OpinionXpress contract")
     .addOptionalParam("semaphore", "Semaphore contract address", undefined, types.string)
+    .addOptionalParam("verifier", "Verifier contract address", undefined, types.string)
     .addOptionalParam("logs", "Print the logs", true, types.boolean)
     .addOptionalParam("verify", "Verify contract in etherscan", false, types.boolean)
-    .setAction(async ({ logs, semaphore: semaphoreAddress, verify }, { ethers, run }) => {
+    .setAction(async ({ logs, semaphore: semaphoreAddress, verifier: verifierAddress, verify }, { ethers, run }) => {
         if (!semaphoreAddress) {
             const { semaphore } = await run("deploy:semaphore", {
                 logs
             })
-
             semaphoreAddress = semaphore.address
         }
 
+        if (!verifierAddress) {
+            const { verifier } = await run("deploy:semaphore-verifier", {
+                logs
+            })
+            verifierAddress = verifier.address
+        }
+
+
         const OpinionXpressFactory = await ethers.getContractFactory("OpinionXpress")
 
-        const opinionXpressContract = await OpinionXpressFactory.deploy(semaphoreAddress)
+        const opinionXpressContract = await OpinionXpressFactory.deploy(semaphoreAddress, verifierAddress)
 
         await opinionXpressContract.deployed()
 
@@ -28,7 +36,7 @@ task("deploy-opinion", "Deploy a OpinionXpress contract")
             try {
                 await run("verify:verify", {
                     address: opinionXpressContract.address,
-                    constructorArguments: [semaphoreAddress],
+                    constructorArguments: [semaphoreAddress, verifierAddress ],
                     network: "mumbai"
                 })
                 console.info(`OpinionXpress contract verified on Mumbai Scan at: ${opinionXpressContract.address}`)
