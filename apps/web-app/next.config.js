@@ -26,7 +26,9 @@ const nextConfig = withPWA({
         NETWORK_RPC: process.env.NETWORK_RPC,
         OPINION_X_PRESS_CONTRACT_ADDRESS: process.env.OPINION_X_PRESS_CONTRACT_ADDRESS,
         NETWORK_ID: process.env.NETWORK_ID,
-        SEMAPHORE_ADDRESS: process.env.SEMAPHORE_ADDRESS
+        SEMAPHORE_ADDRESS: process.env.SEMAPHORE_ADDRESS,
+        RELAYER_API_KEY: process.env.RELAYER_API_KEY,
+        RELAYER_SECRET_KEY: process.env.RELAYER_API_SECRET
     },
     publicRuntimeConfig: {
         DEFAULT_NETWORK: process.env.DEFAULT_NETWORK,
