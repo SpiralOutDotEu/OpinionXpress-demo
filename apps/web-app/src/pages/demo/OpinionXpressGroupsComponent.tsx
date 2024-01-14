@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { ethers } from "ethers"
 import getNextConfig from "next/config"
-import OpinionXpressAbi from "./OpinionXpress.json"
+import OpinionXpressAbi from "../../../ABIs/OpinionXpress.json";
 
 const { publicRuntimeConfig: env } = getNextConfig()
 
