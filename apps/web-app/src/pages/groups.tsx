@@ -6,6 +6,7 @@ import Feedback from "../../contract-artifacts/Feedback.json"
 import Stepper from "../components/Stepper"
 import LogsContext from "../context/LogsContext"
 import SemaphoreContext from "../context/SemaphoreContext"
+import { MainLayout } from "../layouts/mainLayout"
 
 const { publicRuntimeConfig: env } = getNextConfig()
 
@@ -78,7 +79,7 @@ export default function GroupsPage() {
     const userHasJoined = useCallback((identity: Identity) => _users.includes(identity.commitment.toString()), [_users])
 
     return (
-        <>
+        <MainLayout>
             <h2>Groups</h2>
 
             <p>
@@ -131,6 +132,6 @@ export default function GroupsPage() {
                 onPrevClick={() => router.push("/")}
                 onNextClick={_identity && userHasJoined(_identity) ? () => router.push("/proofs") : undefined}
             />
-        </>
+        </MainLayout>
     )
 }

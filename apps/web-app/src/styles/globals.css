@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 :root {
     --slate100: #f1f5f9;
     --slate300: #cbd5e1;

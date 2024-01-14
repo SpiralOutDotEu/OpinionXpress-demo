@@ -9,6 +9,7 @@ import Feedback from "../../contract-artifacts/Feedback.json"
 import Stepper from "../components/Stepper"
 import LogsContext from "../context/LogsContext"
 import SemaphoreContext from "../context/SemaphoreContext"
+import { MainLayout } from "../layouts/mainLayout"
 
 const { publicRuntimeConfig: env } = getNextConfig()
 
@@ -106,7 +107,7 @@ export default function ProofsPage() {
     }, [_identity])
 
     return (
-        <>
+        <MainLayout>
             <h2>Proofs</h2>
 
             <p>
@@ -151,6 +152,6 @@ export default function ProofsPage() {
             <div className="divider"></div>
 
             <Stepper step={3} onPrevClick={() => router.push("/groups")} />
-        </>
+        </MainLayout>
     )
 }

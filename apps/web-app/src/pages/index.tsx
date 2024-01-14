@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import { useCallback, useContext, useEffect, useState } from "react"
 import Stepper from "../components/Stepper"
 import LogsContext from "../context/LogsContext"
+import { MainLayout } from "../layouts/mainLayout"
 
 export default function IdentitiesPage() {
     const router = useRouter()
@@ -34,7 +35,7 @@ export default function IdentitiesPage() {
     }, [])
 
     return (
-        <>
+        <MainLayout>
             <h2 className="font-size: 3rem;">Identities</h2>
 
             <p>
@@ -84,6 +85,6 @@ export default function IdentitiesPage() {
             <div className="divider"></div>
 
             <Stepper step={1} onNextClick={_identity && (() => router.push("/groups"))} />
-        </>
+        </MainLayout>
     )
 }
