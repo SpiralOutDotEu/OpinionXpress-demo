@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react"
 import { ethers } from "ethers"
-import { OPINIONXPRESS_ADDRESS, REQUIRED_NETWORK_ID } from "../../../constants"
+import getNextConfig from "next/config"
 import OpinionXpressAbi from "./OpinionXpress.json"
+
+const { publicRuntimeConfig: env } = getNextConfig()
 
 const OpinionXpressGroupsComponent = () => {
     const [provider, setProvider] = useState<ethers.providers.Web3Provider | null>(null)
@@ -13,7 +15,7 @@ const OpinionXpressGroupsComponent = () => {
 
     const checkNetwork = async () => {
         const network = await provider?.getNetwork()
-        setIsCorrectNetwork(network?.chainId === REQUIRED_NETWORK_ID)
+        setIsCorrectNetwork(network?.chainId === Number(env.NETWORK_ID) )
     }
 
     const connectWallet = async () => {
@@ -43,7 +45,7 @@ const OpinionXpressGroupsComponent = () => {
     const createGroup = async () => {
         if (!provider || !isCorrectNetwork) return
 
-        const contract = new ethers.Contract(OPINIONXPRESS_ADDRESS, OpinionXpressAbi.abi, provider.getSigner())
+        const contract = new ethers.Contract(env.OPINION_X_PRESS_CONTRACT_ADDRESS, OpinionXpressAbi.abi, provider.getSigner())
         try {
             const tx = await contract.createGroup(parseInt(groupId, 10), groupDepth, { gasLimit: 5000000 })
             const receipt = await tx.wait()
@@ -58,7 +60,7 @@ const OpinionXpressGroupsComponent = () => {
     const addMember = async () => {
         if (!provider || !isCorrectNetwork) return
 
-        const contract = new ethers.Contract(OPINIONXPRESS_ADDRESS, OpinionXpressAbi.abi, provider.getSigner())
+        const contract = new ethers.Contract(env.OPINION_X_PRESS_CONTRACT_ADDRESS, OpinionXpressAbi.abi, provider.getSigner())
         try {
             const tx = await contract.addMember(parseInt(membersGroupId, 10), BigInt(commitment), { gasLimit: 5000000 })
             const receipt = await tx.wait() // Wait for the transaction to be mined

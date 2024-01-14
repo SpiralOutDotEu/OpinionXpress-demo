@@ -23,7 +23,10 @@ const nextConfig = withPWA({
         ETHEREUM_PRIVATE_KEY: process.env.ETHEREUM_PRIVATE_KEY,
         FEEDBACK_CONTRACT_ADDRESS: process.env.FEEDBACK_CONTRACT_ADDRESS,
         SEMAPHORE_CONTRACT_ADDRESS: process.env.SEMAPHORE_CONTRACT_ADDRESS,
-        NETWORK_RPC: process.env.NETWORK_RPC
+        NETWORK_RPC: process.env.NETWORK_RPC,
+        OPINION_X_PRESS_CONTRACT_ADDRESS: process.env.OPINION_X_PRESS_CONTRACT_ADDRESS,
+        NETWORK_ID: process.env.NETWORK_ID,
+        SEMAPHORE_ADDRESS: process.env.SEMAPHORE_ADDRESS
     },
     publicRuntimeConfig: {
         DEFAULT_NETWORK: process.env.DEFAULT_NETWORK,
@@ -31,7 +34,10 @@ const nextConfig = withPWA({
         SEMAPHORE_CONTRACT_ADDRESS: process.env.SEMAPHORE_CONTRACT_ADDRESS,
         OPENZEPPELIN_AUTOTASK_WEBHOOK: process.env.OPENZEPPELIN_AUTOTASK_WEBHOOK,
         GROUP_ID: process.env.GROUP_ID,
-        NETWORK_RPC: process.env.NETWORK_RPC
+        NETWORK_RPC: process.env.NETWORK_RPC,
+        OPINION_X_PRESS_CONTRACT_ADDRESS: process.env.OPINION_X_PRESS_CONTRACT_ADDRESS,
+        NETWORK_ID: process.env.NETWORK_ID,
+        SEMAPHORE_ADDRESS: process.env.SEMAPHORE_ADDRESS
     },
     webpack: (config, { isServer }) => {
         if (!isServer) {
