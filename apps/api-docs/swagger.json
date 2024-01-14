@@ -189,7 +189,7 @@
         }
       }
     },
-    "/member": {
+    "/members": {
       "post": {
         "summary": "Add a member to a specific group",
         "description": "Adds the commitment of a member to a specific group",
