@@ -39,6 +39,7 @@ describe("addMemberToContract", () => {
 
         // Assert the overall behavior of the function
         expect(transactionHash).toBe("mocked-transaction-hash")
+        // TODO: test also that 
     })
 })
 
