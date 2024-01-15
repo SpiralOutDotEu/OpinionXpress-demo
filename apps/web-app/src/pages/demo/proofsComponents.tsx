@@ -5,7 +5,6 @@ import { Identity } from "@semaphore-protocol/identity"
 import { generateProof } from "@semaphore-protocol/proof"
 import getNextConfig from "next/config"
 import { BytesLike } from "ethers"
-import { SEMAPHORE_ADDRESS_MUMBAI } from "../../../constants"
 
 const { publicRuntimeConfig: env } = getNextConfig()
 
@@ -29,7 +28,7 @@ const ProofsComponent = () => {
             // const semaphoreSubgraph = new SemaphoreSubgraph(REQUIRED_NETWORK);
             // const groupData = await semaphoreSubgraph.getGroup(groupId, { members: true });
             const semaphoreEthers = new SemaphoreEthers(env.NETWORK_RPC, {
-                address: SEMAPHORE_ADDRESS_MUMBAI,
+                address: env.SEMAPHORE_ADDRESS,
                 startBlock: 44511794
             })
             // const groupData = await semaphoreEthers.getGroup(groupId, { members: true });
