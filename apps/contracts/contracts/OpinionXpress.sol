@@ -34,7 +34,7 @@ contract OpinionXpress is Ownable {
     address public groupAdmin;
     address public voteAdmin;
 
-    event GroupCreated(uint256 groupId);
+    event GroupCreated(uint256 groupId, uint256 depth);
     event GroupAdminChanged(address newAdmin);
     event VoteAdminChanged(address newAdmin);
     event PollCreated(uint256 pollId, string text);
@@ -62,7 +62,7 @@ contract OpinionXpress is Ownable {
         groups[groupId].isActive = true;
         groups[groupId].depth = depth;
         semaphore.createGroup(groupId, depth, address(this), 10 ^ 18 weeks);
-        emit GroupCreated(groupId);
+        emit GroupCreated(groupId, depth);
     }
 
     function createPoll(uint256 pollId, string calldata _text, uint256[] calldata groupIds) external onlyOwner {
@@ -141,5 +141,4 @@ contract OpinionXpress is Ownable {
     ) external onlyGroupAdmin {
         semaphore.updateMember(groupId, identityCommitment, newIdentityCommitment, proofSiblings, proofPathIndices);
     }
-
 }
