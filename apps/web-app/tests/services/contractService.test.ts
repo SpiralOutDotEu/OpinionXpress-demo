@@ -1,4 +1,5 @@
-import { addMemberToContract } from "../../src/services/contractService"
+import { addMemberToContract, getGroupCreatedEvents } from "../../src/services/contractService"
+import { ethers } from "ethers"
 
 // Mock Defender class
 jest.mock("@openzeppelin/defender-sdk", () => ({
@@ -20,8 +21,15 @@ jest.mock("ethers", () => ({
         Contract: jest.fn().mockImplementation(() => ({
             addMember: jest.fn().mockReturnValue({
                 wait: jest.fn().mockResolvedValue({ transactionHash: "mocked-transaction-hash" })
-            })
-        }))
+            }),
+            queryFilter: jest.fn().mockResolvedValue([{ args: { groupId: "mocked-group-id", depth: "mocked-depth" } }]),
+        })),
+        providers: {
+            JsonRpcProvider: jest.fn().mockImplementation(() => ({
+                getNetwork: jest.fn().mockReturnValue({ chainId: 1 }), 
+                getLogs: jest.fn().mockResolvedValue([{ args: { groupId: "mocked-group-id", depth: "mocked-depth" } }]) 
+            }))
+        },
     }
 }))
 
@@ -39,7 +47,19 @@ describe("addMemberToContract", () => {
 
         // Assert the overall behavior of the function
         expect(transactionHash).toBe("mocked-transaction-hash")
-        // TODO: test also that 
+        // TODO: test also that
+    })
+
+    describe("getGroupCreatedEvents", () => {
+        it("should fetch GroupCreated events and return them", async () => {
+            // Mock process.env
+            process.env.OPINION_X_PRESS_CONTRACT_ADDRESS = "mocked-contract-address"
+            process.env.NETWORK_RPC = "mocked-network-rpc"
+
+            const events = await getGroupCreatedEvents()
+
+            // Assert the overall behavior of the function
+            expect(events).toEqual([{ groupId: "mocked-group-id", depth: "mocked-depth" }])
+        })
     })
 })
-
