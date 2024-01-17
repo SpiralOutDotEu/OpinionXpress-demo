@@ -1,5 +1,4 @@
 import { addMemberToContract, getGroupCreatedEvents } from "../../src/services/contractService"
-import { ethers } from "ethers"
 
 // Mock Defender class
 jest.mock("@openzeppelin/defender-sdk", () => ({
