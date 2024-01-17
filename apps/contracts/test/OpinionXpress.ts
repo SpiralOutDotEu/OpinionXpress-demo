@@ -36,7 +36,7 @@ describe("OpinionXpress", () => {
         it("Should allow the owner to create a group", async () => {
             await expect(opinionXpress.createGroup(groupId, depth))
                 .to.emit(opinionXpress, "GroupCreated")
-                .withArgs(groupId)
+                .withArgs(groupId, depth)
             const group = await opinionXpress.groups(groupId)
             expect(group.isActive).to.equal(true)
             expect(group.depth).to.equal(depth)
