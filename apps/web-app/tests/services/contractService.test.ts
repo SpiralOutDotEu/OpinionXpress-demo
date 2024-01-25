@@ -1,4 +1,4 @@
-import { addMemberToContract, getGroupCreatedEvents } from "../../src/services/contractService"
+import { addMemberToContract, getGroupCreatedEvents, getGroupMembers } from "../../src/services/contractService"
 
 // Mock Defender class
 jest.mock("@openzeppelin/defender-sdk", () => ({
@@ -32,6 +32,13 @@ jest.mock("ethers", () => ({
     }
 }))
 
+
+jest.mock("@semaphore-protocol/data", () => ({
+    SemaphoreEthers: jest.fn().mockImplementation(() => ({
+        getGroupMembers: jest.fn().mockResolvedValue([123, 456, 789]) 
+    }))
+}));
+
 describe("addMemberToContract", () => {
     it("should add a member to the contract and return transaction hash", async () => {
         // Mock process.env
@@ -59,6 +66,19 @@ describe("addMemberToContract", () => {
 
             // Assert the overall behavior of the function
             expect(events).toEqual([{ groupId: "mocked-group-id", depth: "mocked-depth" }])
+        })
+    })
+
+    describe("getGroupMembers", () => {
+        it("should fetch group members and return them", async () => {
+            process.env.SEMAPHORE_ADDRESS = "mocked-semaphore-address"
+            process.env.NETWORK_RPC = "mocked-network-rpc"
+    
+            const groupId = "mocked-group-id"
+            const members = await getGroupMembers(groupId)
+            
+            // Assert the overall behavior of the function
+            expect(members).toEqual([123, 456, 789])
         })
     })
 })
