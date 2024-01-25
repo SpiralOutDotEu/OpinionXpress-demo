@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getGroupCreatedEvents } from '../../services/contractService';
+import { getGroupCreatedEvents } from '../../../services/contractService';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
