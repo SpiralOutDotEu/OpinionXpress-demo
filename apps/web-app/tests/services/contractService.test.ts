@@ -1,4 +1,4 @@
-import { addMemberToContract, getGroupCreatedEvents, getGroupMembers } from "../../src/services/contractService"
+import { addMemberToContract, castVote, getGroupCreatedEvents, getGroupMembers } from "../../src/services/contractService"
 
 // Mock Defender class
 jest.mock("@openzeppelin/defender-sdk", () => ({
@@ -22,6 +22,9 @@ jest.mock("ethers", () => ({
                 wait: jest.fn().mockResolvedValue({ transactionHash: "mocked-transaction-hash" })
             }),
             queryFilter: jest.fn().mockResolvedValue([{ args: { groupId: "mocked-group-id", depth: "mocked-depth" } }]),
+            castVote: jest.fn().mockReturnValue({
+                wait: jest.fn().mockResolvedValue({ transactionHash: "mocked-vote-transaction-hash" })
+            }),
         })),
         providers: {
             JsonRpcProvider: jest.fn().mockImplementation(() => ({
@@ -81,4 +84,28 @@ describe("addMemberToContract", () => {
             expect(members).toEqual([123, 456, 789])
         })
     })
+
+    describe("castVote", () => {
+        it("should cast a vote and return the transaction hash", async () => {
+            // Mock process.env
+            process.env.RELAYER_API_KEY = "mocked-relayer-api-key";
+            process.env.RELAYER_API_SECRET = "mocked-relayer-api-secret";
+            process.env.OPINION_X_PRESS_CONTRACT_ADDRESS = "mocked-contract-address";
+    
+            // Define input parameters for castVote
+            const vote = 1;
+            const merkleTreeRoot = 123456;
+            const nullifierHash = 654321;
+            const pollId = 111;
+            const proof = [234, 567, 890];
+            const externalNullifier = 123;
+    
+            const transactionHash = await castVote(vote, merkleTreeRoot, nullifierHash, pollId, proof, externalNullifier);
+    
+            // Assert the overall behavior of the function
+            expect(transactionHash).toBe("mocked-vote-transaction-hash");
+    
+            // Additional assertions to ensure the correct methods were called can be added here
+        });
+    });
 })
