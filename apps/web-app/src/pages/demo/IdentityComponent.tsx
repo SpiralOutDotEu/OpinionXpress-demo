@@ -117,15 +117,19 @@ const IdentityComponent: React.FC = () => {
         }
 
         // generate proofs
-        let fullProof: { merkleTreeRoot: any; nullifierHash: any; proof: any; signal?: NumericString; externalNullifier?: NumericString }
+        let fullProof
         try {
             fullProof = await generateProof(identity, newGroup, 1, vote)
         } catch (error) {
-          if(error instanceof Error){
-            setLog((prevLog) => `${prevLog}\n ERROR! generating the proof ${error.message}`)
-          }
-          setIsLoading(false)
-          return
+            if (error instanceof Error) {
+                const errorMessage = (error as Error).message
+                setLog((prevLog) => `${prevLog}\n ERROR! generating the proof: ${errorMessage}`)
+            } else {
+                // Handle non-Error types
+                setLog((prevLog) => `${prevLog}\n ERROR! generating the proof: An unknown error occurred`)
+            }
+            setIsLoading(false)
+            return
         }
 
         const payload = {
