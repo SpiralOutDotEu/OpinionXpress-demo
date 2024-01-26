@@ -41,12 +41,40 @@ export async function getGroupCreatedEvents() {
 }
 
 export async function getGroupMembers(groupId: string) {
-        const semaphoreEthers = new SemaphoreEthers(NETWORK_RPC, {
-            address: SEMAPHORE_ADDRESS,
-            startBlock: 44511794
-        })
+    const semaphoreEthers = new SemaphoreEthers(NETWORK_RPC, {
+        address: SEMAPHORE_ADDRESS,
+        startBlock: 44511794
+    })
 
-        const members = await semaphoreEthers.getGroupMembers(groupId)
-        return members
+    const members = await semaphoreEthers.getGroupMembers(groupId)
+    return members
+}
 
+export async function castVote(
+    vote: number,
+    merkleTreeRoot: number,
+    nullifierHash: number,
+    pollId: number,
+    proof: number[],
+    externalNullifier: number
+) {
+    const credentials = {
+        relayerApiKey: RELAYER_API_KEY,
+        relayerApiSecret: RELAYER_API_SECRET
+    }
+    const client = new Defender(credentials)
+
+    const provider = client.relaySigner.getProvider()
+    const signer = client.relaySigner.getSigner(provider, { speed: "fast" })
+
+    const opinionXpress = new ethers.Contract(OPINION_X_PRESS_CONTRACT_ADDRESS as string, opinionXpressABI.abi, signer)
+
+    try {
+        const tx = await opinionXpress.castVote(vote, merkleTreeRoot, nullifierHash, pollId, proof, externalNullifier)
+        const mined = await tx.wait()
+        return mined.transactionHash
+    } catch (error) {
+        if (error instanceof Error) throw new Error(error.message)
+        else throw new Error("Error in transaction")
+    }
 }
