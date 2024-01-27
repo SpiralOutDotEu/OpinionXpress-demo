@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         try {
             const { vote, merkleTreeRoot, nullifierHash, pollId, proof, groupId} = req.body
 
-            if (!vote || !merkleTreeRoot || !nullifierHash || !pollId || !proof || !groupId) {
+            if (vote === null || !merkleTreeRoot || !nullifierHash || !pollId || !proof || !groupId) {
                 res.status(400).json({ message: "Missing parameter" })
                 return
             }
