@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 contract Survey {
-    event SurveyCreated(string ipfsLink, uint256 questionsCount, uint256 optionsPerQuestion);
+    event SurveyCreated(uint256 surveyId, string ipfsLink, uint256 questionsCount, uint256 optionsPerQuestion);
     event SurveyResponseSubmitted(uint256 surveyID, uint256 encodedResponses);
 
     struct SurveyDetails {
@@ -28,17 +28,24 @@ contract Survey {
         surveys[nextSurveyId].ipfsLink = ipfsLink;
         surveys[nextSurveyId].questionsCount = questionsCount;
         surveys[nextSurveyId].optionsPerQuestion = optionsPerQuestion;
-        nextSurveyId++;
         for (uint256 i = 0; i < groupIds.length; i++) {
             surveys[nextSurveyId].groupsAllowed[groupIds[i]] = true;
         }
-        emit SurveyCreated(ipfsLink, questionsCount, optionsPerQuestion);
+        emit SurveyCreated(nextSurveyId, ipfsLink, questionsCount, optionsPerQuestion);
+        nextSurveyId++;
+    }
+
+    function _isGroupAllowed(uint256 surveyId, uint256 groupId) internal virtual view returns (bool) {
+        return surveys[surveyId].groupsAllowed[groupId];
     }
 
     // Function to submit survey responses
-    function _submitResponse(uint256 surveyId, uint256 encodedResponses, uint256 nullifierHash) internal {
+    function _submitResponse(uint256 surveyId, uint256 encodedResponses, uint256 nullifierHash, uint256 groupId)
+        internal
+    {
         require(surveyId < nextSurveyId, "Invalid survey ID");
         require(surveys[surveyId].nullifierHashes[nullifierHash] != true, "Already Submitted");
+        require(_isGroupAllowed(surveyId, groupId), "Not allowed Group");
         SurveyDetails storage survey = surveys[surveyId];
         for (uint256 i = 0; i < survey.questionsCount; i++) {
             uint256 response = (encodedResponses >> (2 * i)) & 0x03;

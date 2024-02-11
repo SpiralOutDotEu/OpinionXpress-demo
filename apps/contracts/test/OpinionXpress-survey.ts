@@ -51,7 +51,7 @@ describe("OpinionXpress - Survey", () => {
         const allowedGroupIds = faker.helpers.arrayElements([1, 10, 100, 200, 300])
         await expect(opinionXpress.createSurvey(ipfsLink, questionsCount, optionsPerQuestion, allowedGroupIds))
             .to.emit(opinionXpress, "SurveyCreated")
-            .withArgs(ipfsLink, questionsCount, optionsPerQuestion)
+            .withArgs(0, ipfsLink, questionsCount, optionsPerQuestion)
         const survey = await opinionXpress.getSurvey(0)
         expect(survey.ipfsLink).to.equal(ipfsLink)
         expect(survey.questionsCount).to.equal(questionsCount)
@@ -80,7 +80,7 @@ describe("OpinionXpress - Survey", () => {
             const ipfsLink = faker.internet.url()
             const questionsCount = faker.number.int({ min: 1, max: 10 })
             const optionsPerQuestion = faker.number.int({ min: 1, max: 5 })
-            const allowedGroups = [100]
+            const allowedGroups = [101]
             await opinionXpress.connect(owner).createSurvey(ipfsLink, questionsCount, optionsPerQuestion, allowedGroups)
             const surveyId = 0
             return { owner, user1, user2, ipfsLink, questionsCount, optionsPerQuestion, allowedGroups, surveyId }

@@ -162,6 +162,6 @@ contract OpinionXpress is Ownable, Survey {
         uint256 groupId
     ) public {
         verifier.verifyProof(merkleTreeRoot, nullifierHash, encodedResponses, surveyId, proof, groups[groupId].depth);
-        super._submitResponse(surveyId, encodedResponses, nullifierHash);
+        super._submitResponse(surveyId, encodedResponses, nullifierHash, groupId);
     }
 }
