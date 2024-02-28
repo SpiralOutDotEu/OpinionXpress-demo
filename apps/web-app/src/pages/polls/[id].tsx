@@ -55,7 +55,8 @@ const ListDetail = () => {
         // generate proofs
         let fullProof
         try {
-            fullProof = await generateProof(identity, newGroup, BigInt(pollId), vote)
+            const pollIdBigInt = BigInt(pollId as string);
+            fullProof = await generateProof(identity, newGroup, pollIdBigInt, vote)
         } catch (error) {
             if (error instanceof Error) {
                 const errorMessage = (error as Error).message
