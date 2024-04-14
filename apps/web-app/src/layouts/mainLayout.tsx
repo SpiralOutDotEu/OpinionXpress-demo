@@ -2,7 +2,6 @@ import Head from "next/head"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import { Inter } from "@next/font/google"
-import { SessionProvider } from "next-auth/react"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -14,7 +13,7 @@ export const MainLayout: React.FC<Props> = ({
     children,
 }: Props) => {
     const router = useRouter()
-    const [_logs, setLogs] = useState<string>("")
+    const [_logs] = useState<string>("")
 
     return (
         <div className={inter.className}>
@@ -43,3 +42,5 @@ export const MainLayout: React.FC<Props> = ({
         </div>
     );
 };
+
+export default MainLayout;

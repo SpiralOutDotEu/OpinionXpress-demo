@@ -18,6 +18,8 @@
   "scripts": {
     "dev": "yarn workspaces foreach -pi run dev",
     "dev:web-app": "yarn workspace monorepo-ethers-web-app dev",
+    "web-build": "yarn workspace monorepo-ethers-web-app build",
+    "web-start": "yarn workspace monorepo-ethers-web-app start",
     "dev:contracts": "yarn workspace monorepo-ethers-contracts dev",
     "lint": "eslint . --ext .js,.ts",
     "prettier": "prettier -c .",
