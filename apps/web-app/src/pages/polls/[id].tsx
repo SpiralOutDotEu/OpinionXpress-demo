@@ -31,7 +31,7 @@ const ListDetail = () => {
         setIsLoading(true)
 
         // get members
-        const response = await fetch("/api/groups/101101", {
+        const response = await fetch("/api/groups/100", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -46,7 +46,7 @@ const ListDetail = () => {
         // recreate the group
         let newGroup
         if (data) {
-            newGroup = new Group(101101, 20, data)
+            newGroup = new Group(100, 20, data)
             setGroup(newGroup)
         } else {
             setIsLoading(false)
@@ -72,7 +72,7 @@ const ListDetail = () => {
             nullifierHash: fullProof.nullifierHash,
             pollId,
             proof: fullProof.proof,
-            groupId: 101101
+            groupId: 100
         }
 
         try {
@@ -91,7 +91,7 @@ const ListDetail = () => {
 
             const voteData = await voteResponse.json()
             if(voteData.transactionHash){
-            const transactionLink = `https://mumbai.polygonscan.com/tx/${voteData.transactionHash}`
+            const transactionLink = `https://sepolia.arbiscan.io/tx/${voteData.transactionHash}`
             setLog(
                 `<span>Success! Click here to see your Transaction in blockchain explorer: </span> <a href="${transactionLink}" target="_blank" rel="noopener noreferrer"> ${transactionLink}</a>`
             )
