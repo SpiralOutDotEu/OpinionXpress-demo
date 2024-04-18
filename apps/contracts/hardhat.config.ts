@@ -44,9 +44,9 @@ function getNetworks(): NetworksUserConfig {
             chainId: 420,
             accounts
         },
-        "arbitrum-goerli": {
-            url: "https://goerli-rollup.arbitrum.io/rpc",
-            chainId: 421613,
+        "arbitrum-sepolia": {
+            url: `https://arbitrum-sepolia.infura.io/v3/${infuraApiKey}`,
+            chainId: 421614,
             accounts
         },
         arbitrum: {
@@ -60,9 +60,17 @@ function getNetworks(): NetworksUserConfig {
 const hardhatConfig: HardhatUserConfig = {
     solidity: {
         compilers: [
-            { version: "0.8.4" },
-            { version: "0.8.20", settings: {} },
-        ],
+            { version: "0.8.20" },
+            {
+                version: "0.8.4",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 1000
+                    }
+                }
+            }
+        ]
     },
     paths: {
         sources: config.paths.contracts,
@@ -86,7 +94,17 @@ const hardhatConfig: HardhatUserConfig = {
         target: "ethers-v5"
     },
     etherscan: {
-        apiKey: process.env.ETHERSCAN_API_KEY
+        apiKey: process.env.ETHERSCAN_API_KEY,
+        customChains: [
+            {
+              network: "arbitrum-sepolia",
+              chainId: 421614,
+              urls: {
+                apiURL: "https://api-sepolia.arbiscan.io/api",
+                browserURL: "https://sepolia.etherscan.io"
+              }
+            }
+          ]
     },
     mocha: {
         timeout: 10000
