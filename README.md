@@ -31,7 +31,7 @@ yarn deploy --semaphore <semaphore-address> --group <group-id> --network arbitru
 ### Deploy Opinion contract
 
 ```bash
-yarn deploy-opinion --semaphore 0x3889927F0B5Eb1a02C6E2C20b39a1Bd4EAd76131 --verifier 0xb908Bcb798e5353fB90155C692BddE3b4937217C --verify true --network mumbai
+yarn deploy-opinion --semaphore 0x25C683442D5E1571d4950b5e885D38042c1a2a54 --verifier 0xA19Ae83E812665005887dbD9A84922E2F4F71b03 --verify true --network arbitrum-sepolia
 ```
 
 2. Update your `.env` file with your new contract address, the group id and the semaphore contract address.
