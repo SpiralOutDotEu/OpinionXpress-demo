@@ -32,14 +32,14 @@ task("deploy-opinion", "Deploy a OpinionXpress contract")
         }
 
         if (verify) {
-            // Verify the contract on Mumbai Scan
+            // Verify the contract on arbitrum-sepolia Scan
             try {
                 await run("verify:verify", {
                     address: opinionXpressContract.address,
                     constructorArguments: [semaphoreAddress, verifierAddress ],
-                    network: "mumbai"
+                    network: "arbitrum-sepolia"
                 })
-                console.info(`OpinionXpress contract verified on Mumbai Scan at: ${opinionXpressContract.address}`)
+                console.info(`OpinionXpress contract verified on arbitrum-sepolia Scan at: ${opinionXpressContract.address}`)
             } catch (error) {
                 console.error("Contract verification failed:", error)
             }
