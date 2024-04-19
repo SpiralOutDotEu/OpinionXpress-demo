@@ -48,7 +48,7 @@ contract Survey {
         require(_isGroupAllowed(surveyId, groupId), "Not allowed Group");
         SurveyDetails storage survey = surveys[surveyId];
         for (uint256 i = 0; i < survey.questionsCount; i++) {
-            uint256 response = (encodedResponses >> (2 * i)) & 0x03;
+            uint256 response = (encodedResponses >> (3 * i)) & 0x07;
             require(response < survey.optionsPerQuestion, "Invalid response");
             survey.responseCounts[i][response]++;
         }
