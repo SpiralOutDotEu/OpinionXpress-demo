@@ -1,0 +1,79 @@
+.surveyContainer {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #f9f9f9;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .title {
+    color: #333;
+    font-weight: bold;
+    font-size: 28px; 
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .description {
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .question {
+    margin-bottom: 15px;
+  }
+  
+  .questionText {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .optionLabel {
+    display: block;
+    margin: 5px 0;
+    cursor: pointer;
+  }
+  
+  .radioContainer {
+    margin-right: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center; /* Ensures label and radio button are aligned */
+  }
+  
+  .submitButton {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submitButton:hover, .submitButton:focus {
+    background-color: #0056b3;
+    outline: none;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .surveyContainer {
+      margin: 20px 10px;
+      padding: 15px;
+    }
+  
+    .submitButton {
+      padding: 8px;
+    }
+  }
+ 
+  
+  
