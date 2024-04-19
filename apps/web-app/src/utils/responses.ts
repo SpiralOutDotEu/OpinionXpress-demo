@@ -10,7 +10,7 @@ export function encodeResponses(responses: number[]): string {
         if (response < 0 || response > 7) {
             throw new Error("Invalid response: each response must be between 0 and 7 inclusive.")
         }
-        encoded |= BigInt(response) << (BigInt(3) * BigInt(index))
+        encoded |= BigInt(response) << (BigInt(2) * BigInt(index)) // Using 2 bits for encoding each response
     })
     // Convert the encoded number to a hex string to represent a uint256 value
     return `${encoded.toString(16)}`
@@ -24,19 +24,11 @@ export function encodeResponses(responses: number[]): string {
  * @returns An array of response indices, where each index corresponds to a selected option for a question.
  */
 export function decodeResponses(encodedResponses: string, numberOfResponses: number): number[] {
-    const encoded = BigInt(`0x${encodedResponses}`) // Convert hex string back to BigInt
+    const encodedBigInt = BigInt(`0x${encodedResponses}`)
     const responses = []
-    const mask = BigInt(7) // Binary 111, which corresponds to 3 bits
-
-    console.log(`Decoding encodedResponses: ${encodedResponses} into ${numberOfResponses} responses`)
-
     for (let i = 0; i < numberOfResponses; i += 1) {
-        const shifted = encoded >> (BigInt(3) * BigInt(i))
-        const response = Number(shifted & mask)
+        const response = Number((encodedBigInt >> (BigInt(2) * BigInt(i))) & BigInt(3))
         responses.push(response)
-
-        console.log(`Response ${i}: ${response}`)
     }
-
     return responses
 }
