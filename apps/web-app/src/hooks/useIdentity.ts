@@ -4,8 +4,10 @@ import { Identity } from "@semaphore-protocol/identity"
 const useIdentity = () => {
     const [identity, setIdentity] = useState<Identity | null>(null)
     const [notification, setNotification] = useState("")
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const createMember = async (commitment: string) => {
+        setIsLoading(true)
         const response = await fetch("/api/members", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -16,9 +18,11 @@ const useIdentity = () => {
         })
         if (response.ok) {
             setNotification("User identity created and member added.")
+            setIsLoading(false)
         } else {
             const errorText = await response.text()
             setNotification(`Failed to add member: ${errorText}`)
+            setIsLoading(false)
         }
     }
 
@@ -55,6 +59,7 @@ const useIdentity = () => {
     return {
         identity,
         notification,
+        isLoading,
         resetIdentity,
         createNewIdentity
     }
