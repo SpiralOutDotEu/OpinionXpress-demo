@@ -101,7 +101,10 @@ const SurveyComponent: React.FC = () => {
         let fullProof
         try {
             const surveyIdBigInt = BigInt(surveyId as string)
-            fullProof = await generateProof(identity, newGroup, surveyIdBigInt, encodedResponses)
+            fullProof = await generateProof(identity, newGroup, surveyIdBigInt, encodedResponses, {
+                wasmFilePath: "/snark-artifacts/semaphore.wasm",
+                zkeyFilePath: "/snark-artifacts/semaphore.zkey"
+            })
         } catch (error) {
             if (error instanceof Error) {
                 const errorMessage = (error as Error).message
