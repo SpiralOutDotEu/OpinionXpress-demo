@@ -11,6 +11,8 @@ const ListDetail = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [group, setGroup] = useState<Group | null>(null)
     const [log, setLog] = useState<string | null>(null)
+    
+    const defaultGroup = process.env.NEXT_PUBLIC_DEFAULT_GROUP || 100
 
     const { id: pollId, text } = router.query
 
@@ -31,7 +33,7 @@ const ListDetail = () => {
         setIsLoading(true)
 
         // get members
-        const response = await fetch("/api/groups/100", {
+        const response = await fetch(`/api/groups/${defaultGroup}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -46,7 +48,7 @@ const ListDetail = () => {
         // recreate the group
         let newGroup
         if (data) {
-            newGroup = new Group(100, 20, data)
+            newGroup = new Group(defaultGroup, 20, data)
             setGroup(newGroup)
         } else {
             setIsLoading(false)
@@ -72,7 +74,7 @@ const ListDetail = () => {
             nullifierHash: fullProof.nullifierHash,
             pollId,
             proof: fullProof.proof,
-            groupId: 100
+            groupId: defaultGroup
         }
 
         try {

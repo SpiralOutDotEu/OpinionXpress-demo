@@ -30,6 +30,8 @@ const SurveyComponent: React.FC = () => {
     const [survey, setSurvey] = useState<Survey | null>(null)
     const [responses, setResponses] = useState<number[]>([])
 
+    const defaultGroup = process.env.NEXT_PUBLIC_DEFAULT_GROUP || 100
+
     useEffect(() => {
         // Retrieve the identity from local storage
         const storedIdentityJSON = localStorage.getItem("identity")
@@ -72,7 +74,7 @@ const SurveyComponent: React.FC = () => {
         setIsLoading(true)
 
         // get members
-        const membersResponse = await fetch("/api/groups/100", {
+        const membersResponse = await fetch(`/api/groups/${defaultGroup}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -87,7 +89,7 @@ const SurveyComponent: React.FC = () => {
         // recreate the group
         let newGroup
         if (membersData) {
-            newGroup = new Group(100, 20, membersData)
+            newGroup = new Group(defaultGroup, 20, membersData)
             setGroup(newGroup)
         } else {
             setLog("Failed to get group members.")
@@ -120,7 +122,7 @@ const SurveyComponent: React.FC = () => {
             merkleTreeRoot: fullProof.merkleTreeRoot,
             nullifierHash: fullProof.nullifierHash,
             proof: fullProof.proof,
-            groupId: 100
+            groupId: defaultGroup
         }
 
         const submitResponse = await fetch("/api/surveys", {
