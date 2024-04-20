@@ -8,8 +8,9 @@ const IdentityComponent: React.FC = () => {
     const [seed, setSeed] = useState<string>("")
     const [log, setLog] = useState<string>("")
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [group, setGroup] = useState<Group | null>(null)
-    const defaultGroup = process.env.NEXT_PUBLIC_DEFAULT_GROUP
+    const defaultGroup = process.env.NEXT_PUBLIC_DEFAULT_GROUP || 100
 
     useEffect(() => {
         // Retrieve the identity from local storage
