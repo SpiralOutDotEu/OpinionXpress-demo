@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaTools } from 'react-icons/fa';
-import styles from '../styles/Banner.module.css'; // Path to your CSS module
+import styles from '../styles/BetaBanner.module.css'; // Path to your CSS module
 
 const Banner: React.FC = () => (
       <div className={styles.banner}>
