@@ -1,9 +1,9 @@
-// pages/list/[id].js
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { Identity } from "@semaphore-protocol/identity"
 import { Group } from "@semaphore-protocol/group"
 import { generateProof } from "@semaphore-protocol/proof"
+import Modal from "../../../components/Modal"
 
 const ListDetail = () => {
     const router = useRouter()
@@ -12,7 +12,15 @@ const ListDetail = () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [group, setGroup] = useState<Group | null>(null)
     const [log, setLog] = useState<string | null>(null)
-    
+    const [modalOpen, setModalOpen] = useState(false)
+    const [status, setStatus] = useState<"success" | "error">("success")
+
+    const setModal = (modalStatus: "success" | "error", message: string) => {
+        setLog(message)
+        setStatus(modalStatus)
+        setModalOpen(true)
+    }
+
     const defaultGroup = process.env.NEXT_PUBLIC_DEFAULT_GROUP || 100
 
     const { id: pollId, text } = router.query
@@ -41,7 +49,7 @@ const ListDetail = () => {
             }
         })
         if (!response.ok) {
-            setLog("Failed to get groups.")
+            setModal("error", "Failed to get groups")
             setIsLoading(false)
             return null
         }
@@ -58,7 +66,7 @@ const ListDetail = () => {
         // generate proofs
         let fullProof
         try {
-            const pollIdBigInt = BigInt(pollId as string);
+            const pollIdBigInt = BigInt(pollId as string)
             fullProof = await generateProof(identity, newGroup, pollIdBigInt, vote, {
                 wasmFilePath: "/snark-artifacts/semaphore.wasm",
                 zkeyFilePath: "/snark-artifacts/semaphore.zkey"
@@ -66,7 +74,7 @@ const ListDetail = () => {
         } catch (error) {
             if (error instanceof Error) {
                 const errorMessage = (error as Error).message
-                setLog(errorMessage)
+                setModal("error", errorMessage)
             }
             setIsLoading(false)
             return null
@@ -90,26 +98,28 @@ const ListDetail = () => {
                 body: JSON.stringify(payload)
             })
 
-            if (!response.ok) {
+            if (!voteResponse.ok) {
                 setLog("Failed to cast vote")
-                throw new Error(`HTTP error! status: ${voteResponse.status}`)
+                const errorMessage = await voteResponse.json()
+                setModal("error", JSON.stringify(errorMessage))
+                return null
             }
 
             const voteData = await voteResponse.json()
-            if(voteData.transactionHash){
-            const transactionLink = `https://sepolia.arbiscan.io/tx/${voteData.transactionHash}`
-            setLog(
-                `<span>Success! Click here to see your Transaction in blockchain explorer: </span> <a href="${transactionLink}" target="_blank" rel="noopener noreferrer"> ${transactionLink}</a>`
-            )
-            }
-            else throw Error(voteData.message)
+            if (voteData.transactionHash) {
+                setIsLoading(false)
+                setModal("success", `tx=${voteData.transactionHash} `)
+            } else throw Error(voteData.message)
         } catch (error) {
             if (error instanceof Error) {
                 const errorMessage = (error as Error).message
-                setLog(`Error: ${errorMessage}`)
-            } else setLog("Error on casting vote")
+                setIsLoading(false)
+                setModal("error", errorMessage)
+            } else {
+                setIsLoading(false)
+                setModal("error", "Error on casting vote")
+            }
         }
-
         setIsLoading(false)
         return null
     }
@@ -133,7 +143,7 @@ const ListDetail = () => {
             <button className="btn-red" onClick={() => castVote(0)} disabled={isLoading}>
                 Vote NO on poll {pollId}
             </button>
-            {log && <div dangerouslySetInnerHTML={{ __html: log }} />}
+            <Modal text={log as string} isOpen={modalOpen} status={status} onClose={() => setModalOpen(false)} />
         </div>
     )
 }
