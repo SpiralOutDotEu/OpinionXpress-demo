@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { FaBars, FaShieldAlt } from 'react-icons/fa';
-import Link from 'next/link'
-import styles from '../styles/Header.module.css';
+import React, { useState } from "react"
+import { FaBars, FaShieldAlt } from "react-icons/fa"
+import Link from "next/link"
+import styles from "../styles/Header.module.css"
 
 const Header: React.FC = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     const handleMenuClick = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
+        setIsMenuOpen(!isMenuOpen)
+    }
 
     return (
         <header className={styles.header}>
@@ -21,12 +21,16 @@ const Header: React.FC = () => {
             </button>
             {isMenuOpen && (
                 <div className={styles.dropdownMenu}>
-                    <Link href="/profile/upload" className={styles.menuItem}>Identity</Link>
-                    <Link href="/demo/polls" className={styles.menuItem}>Polls</Link>
+                    <Link href="/demo/identity" className={styles.menuItem}>
+                        Identity
+                    </Link>
+                    <Link href="/demo/polls" className={styles.menuItem}>
+                        Polls
+                    </Link>
                 </div>
             )}
         </header>
-    );
-};
+    )
+}
 
-export default Header;
+export default Header
