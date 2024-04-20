@@ -19,6 +19,7 @@ const ListDetail = () => {
         setLog(message)
         setStatus(modalStatus)
         setModalOpen(true)
+        setIsLoading(false)
     }
 
     const defaultGroup = process.env.NEXT_PUBLIC_DEFAULT_GROUP || 100
@@ -50,7 +51,6 @@ const ListDetail = () => {
         })
         if (!response.ok) {
             setModal("error", "Failed to get groups")
-            setIsLoading(false)
             return null
         }
         const data = await response.json()
@@ -107,16 +107,13 @@ const ListDetail = () => {
 
             const voteData = await voteResponse.json()
             if (voteData.transactionHash) {
-                setIsLoading(false)
                 setModal("success", `tx=${voteData.transactionHash} `)
             } else throw Error(voteData.message)
         } catch (error) {
             if (error instanceof Error) {
                 const errorMessage = (error as Error).message
-                setIsLoading(false)
                 setModal("error", errorMessage)
             } else {
-                setIsLoading(false)
                 setModal("error", "Error on casting vote")
             }
         }
