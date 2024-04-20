@@ -126,6 +126,19 @@ export async function getSurvey(surveyId: string) {
     return survey
 }
 
+export async function getSurveyResponses(surveyId: string) {
+    // Connect to an Ethereum provider
+    const provider = new ethers.providers.JsonRpcProvider(NETWORK_RPC)
+
+    // Create a new instance of the contract
+    const contract = new ethers.Contract(OPINION_X_PRESS_CONTRACT_ADDRESS as string, opinionXpressABI.abi, provider)
+
+    // Fetch responses of a survey
+    const surveyResponses = await contract.getSurvey(BigInt(surveyId))
+
+    return surveyResponses
+}
+
 export async function submitSurveyResponse(
     surveyId: number,
     encodedResponses: BigInt,
