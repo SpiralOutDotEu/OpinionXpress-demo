@@ -66,7 +66,7 @@ const ListDetail = () => {
         } catch (error) {
             if (error instanceof Error) {
                 const errorMessage = (error as Error).message
-                console.log(errorMessage)
+                setLog(errorMessage)
             }
             setIsLoading(false)
             return null
@@ -104,8 +104,10 @@ const ListDetail = () => {
             }
             else throw Error(voteData.message)
         } catch (error) {
-            if (error instanceof Error) setLog(`Failed to cast vote: ${error.message}`)
-            console.log(error)
+            if (error instanceof Error) {
+                const errorMessage = (error as Error).message
+                setLog(`Error: ${errorMessage}`)
+            } else setLog("Error on casting vote")
         }
 
         setIsLoading(false)

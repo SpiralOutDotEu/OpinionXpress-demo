@@ -5,7 +5,7 @@ import { Identity } from "@semaphore-protocol/identity"
 import { Group } from "@semaphore-protocol/group"
 import { generateProof } from "@semaphore-protocol/proof"
 import styles from "../../../styles/SurveyForm.module.css"
-import { encodeResponses, decodeResponses } from "../../../utils/responses"
+import { encodeResponses } from "../../../utils/responses"
 
 interface Question {
     questionText: string
@@ -137,9 +137,6 @@ const SurveyComponent: React.FC = () => {
             setIsLoading(false)
             throw new Error(`HTTP error! status: ${submitResponse.status}`)
         }
-        const decoded = decodeResponses(encodedResponses, 5) // Assuming we know there are 5 responses
-        console.log("Decoded responses ", decoded)
-
         const submitData = await submitResponse.json()
         if (submitData.transactionHash) {
             const transactionLink = `https://sepolia.arbiscan.io/tx/${submitData.transactionHash}`

@@ -30,11 +30,7 @@ export default function Polls() {
 
     useEffect(() => {
         if (polls.length === 0) {
-            console.log("call")
-
             getPolls()
-        } else {
-            console.log(polls)
         }
     }, [])
 

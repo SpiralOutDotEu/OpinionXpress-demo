@@ -157,7 +157,6 @@ export async function submitSurveyResponse(
     const signer = client.relaySigner.getSigner(provider, { speed: "fast" })
 
     const opinionXpress = new ethers.Contract(OPINION_X_PRESS_CONTRACT_ADDRESS as string, opinionXpressABI.abi, signer)
-    console.log("transaction data: ", surveyId, encodedResponses, merkleTreeRoot, nullifierHash, proof, groupId)
     try {
         const tx = await opinionXpress.submitSurveyResponse(
             surveyId,
