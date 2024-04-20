@@ -80,7 +80,7 @@ const SurveyResponsesComponent: React.FC = () => {
                                         const responseCount = responses ? responses[questionIndex][optionIndex] : 0
                                         const widthPercent = maxResponses > 0 ? (responseCount / maxResponses) * 100 : 0
                                         return (
-                                            <div className={styles.optionContainer}>
+                                            <div key={optionIndex} className={styles.optionContainer}>
                                                 <span className={styles.optionText}>{option}</span>
                                                 <div className={styles.barContainer}>
                                                     <div className={styles.bar}>
