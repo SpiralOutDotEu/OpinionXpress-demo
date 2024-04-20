@@ -1,0 +1,66 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative; 
+}
+
+.brandContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.brandIcon {
+    margin-right: 8px; /* Space between icon and brand text */
+    font-size: 1.5rem; /* Adjust the size as necessary */
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.menuButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.dropdownMenu {
+    position: absolute;
+    right: 0px; /* Adjust as needed to align with the hamburger icon */
+    top: 100%;
+    background: white;
+    border-radius: 8px; /* Rounded corners for a modern look */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    overflow: hidden; /* To ensure the children's rounded corners don't overflow */
+    width: 200px; /* Fixed width or adjust as needed */
+    transform: translateX(-10%);
+    opacity: 1;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.menuItem {
+    display: block;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.2s ease-in-out; /* Smooth transition for hover */
+}
+
+.menuItem:not(:last-child) {
+    border-bottom: 1px solid #eee; /* Separator between menu items */
+}
+
+.menuItem:hover {
+    background-color: #f2f2f2; /* Slightly different shade for hover */
+}
+
