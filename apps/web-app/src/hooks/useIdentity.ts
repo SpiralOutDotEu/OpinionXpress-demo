@@ -11,7 +11,7 @@ const useIdentity = () => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 commitment,
-                groupId: 100
+                groupId: process.env.NEXT_PUBLIC_DEFAULT_GROUP
             })
         })
         if (response.ok) {

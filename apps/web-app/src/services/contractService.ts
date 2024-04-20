@@ -59,7 +59,7 @@ export async function getPollsCreatedEvents() {
 export async function getGroupMembers(groupId: string) {
     const semaphoreEthers = new SemaphoreEthers(NETWORK_RPC, {
         address: SEMAPHORE_ADDRESS,
-        startBlock: 34358309
+        startBlock: process.env.NEXT_PUBLIC_STARTUP_BLOCK as unknown as number
     })
 
     const members = await semaphoreEthers.getGroupMembers(groupId)

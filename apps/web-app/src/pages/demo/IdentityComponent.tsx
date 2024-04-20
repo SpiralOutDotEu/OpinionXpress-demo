@@ -9,6 +9,7 @@ const IdentityComponent: React.FC = () => {
     const [log, setLog] = useState<string>("")
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [group, setGroup] = useState<Group | null>(null)
+    const defaultGroup = process.env.NEXT_PUBLIC_DEFAULT_GROUP
 
     useEffect(() => {
         // Retrieve the identity from local storage
@@ -50,7 +51,7 @@ const IdentityComponent: React.FC = () => {
 
         const payload = {
             commitment: identity.commitment.toString(),
-            groupId: 100
+            groupId: defaultGroup
         }
 
         setLog((prevLog) => `${prevLog}\n Sending to contract this: ${JSON.stringify(payload)}`)
@@ -91,8 +92,8 @@ const IdentityComponent: React.FC = () => {
         setIsLoading(true)
 
         // get members
-        setLog((prevLog) => `${prevLog}\n Trying to get the members (GET api/groups/100)...`)
-        const response = await fetch("api/groups/100", {
+        setLog((prevLog) => `${prevLog}\n Trying to get the members (GET api/groups/${defaultGroup})...`)
+        const response = await fetch(`api/groups/${defaultGroup}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -108,7 +109,7 @@ const IdentityComponent: React.FC = () => {
         // recreate the group
         let newGroup
         if (data) {
-            newGroup = new Group(100, 20, data)
+            newGroup = new Group(defaultGroup, 20, data)
             setGroup(newGroup)
         } else {
             setLog((prevLog) => `${prevLog}\n ERROR! creating the group`)
@@ -138,7 +139,7 @@ const IdentityComponent: React.FC = () => {
             nullifierHash: fullProof.nullifierHash,
             pollId: 1,
             proof: fullProof.proof,
-            groupId: 100
+            groupId: defaultGroup
         }
 
         setLog((prevLog) => `${prevLog}\n Sending to contract this: ${JSON.stringify(payload)}`)
@@ -219,7 +220,7 @@ const IdentityComponent: React.FC = () => {
                     Clear Identity
                 </button>
                 <button className="btn" onClick={addCommitmentToGroup} disabled={isLoading}>
-                    Add Commitment to Group 100
+                    Add Commitment to Default Group 
                 </button>
                 <br></br>
                 <button className="btn-green" onClick={() => castVote(1)} disabled={isLoading}>
