@@ -22,7 +22,7 @@ const Header: React.FC = () => {
             {isMenuOpen && (
                 <div className={styles.dropdownMenu}>
                     <Link href="/profile/upload" className={styles.menuItem}>Identity</Link>
-                    <Link href="/demo/surveys/responses/0" className={styles.menuItem}>Polls</Link>
+                    <Link href="/demo/polls" className={styles.menuItem}>Polls</Link>
                 </div>
             )}
         </header>

@@ -9,6 +9,7 @@ const ListDetail = () => {
     const router = useRouter()
     const [identity, setIdentity] = useState<Identity | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [group, setGroup] = useState<Group | null>(null)
     const [log, setLog] = useState<string | null>(null)
     
@@ -58,7 +59,10 @@ const ListDetail = () => {
         let fullProof
         try {
             const pollIdBigInt = BigInt(pollId as string);
-            fullProof = await generateProof(identity, newGroup, pollIdBigInt, vote)
+            fullProof = await generateProof(identity, newGroup, pollIdBigInt, vote, {
+                wasmFilePath: "/snark-artifacts/semaphore.wasm",
+                zkeyFilePath: "/snark-artifacts/semaphore.zkey"
+            })
         } catch (error) {
             if (error instanceof Error) {
                 const errorMessage = (error as Error).message

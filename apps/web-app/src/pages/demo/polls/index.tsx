@@ -1,6 +1,5 @@
-// pages/index.js
 import React, { useEffect, useState } from 'react';
-import LinksList from '../components/LinkList';
+import LinksList from '../../../components/PollList';
 
 export interface Poll  {
     pollId: number, text: string
