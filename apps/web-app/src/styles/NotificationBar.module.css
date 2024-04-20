@@ -1,0 +1,29 @@
+.notificationBar {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 0;  /* Start hidden */
+  }
+  .visible {
+    opacity: 1;  /* Fade in */
+  }
+  
+  .icon {
+    margin-right: 8px;
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+  
