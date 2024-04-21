@@ -122,10 +122,17 @@
   font-weight: bold;
   color: #333;
   padding: 8px 0;
+  margin-bottom: 1px; 
+}
+
+.superDescription {
+  color: #666;
+  text-align: center;
+  padding: 8px 2;
+  padding-bottom: 8px;
   border-bottom: 2px solid #005f9e; 
   margin-bottom: 16px; 
 }
-
   
   /* Responsive styles */
   @media (max-width: 768px) {
