@@ -36,12 +36,12 @@ const Header: React.FC = () => {
                 <FaShieldAlt className={styles.brandIcon} />
                 <div className={styles.logo}>OpinionTrust</div>
             </div>
-            <button className={styles.menuButton} onClick={handleMenuClick}>
-                <FaBars size={24} />
-            </button>
-            {isMenuOpen && (
-                <div className={styles.dropdownMenu} ref={dropdownRef}>
-                    <Link className={styles.menuItem} href="/demo/identity" onClick={closeMenu}>
+            <nav className={styles.navigation}>
+                <button className={styles.menuButton} onClick={handleMenuClick}>
+                    <FaBars size={24} />
+                </button>
+                <div className={`${styles.dropdownMenu} ${isMenuOpen ? styles.menuActive : ""}`} ref={dropdownRef}>
+                    <Link className={styles.menuItem} href="/demo/discovery" onClick={closeMenu}>
                         Identity
                     </Link>
                     <Link className={styles.menuItem} href="/demo/polls" onClick={closeMenu}>
@@ -51,7 +51,7 @@ const Header: React.FC = () => {
                         Surveys
                     </Link>
                 </div>
-            )}
+            </nav>
         </header>
     )
 }
