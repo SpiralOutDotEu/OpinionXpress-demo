@@ -6,6 +6,7 @@ import { Group } from "@semaphore-protocol/group"
 import { generateProof } from "@semaphore-protocol/proof"
 import styles from "../../../styles/SurveyForm.module.css"
 import { encodeResponses } from "../../../utils/responses"
+import Modal from "../../../components/Modal"
 
 interface Question {
     questionText: string
@@ -24,6 +25,8 @@ const SurveyComponent: React.FC = () => {
     const [identity, setIdentity] = useState<Identity | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [log, setLog] = useState<string | null>(null)
+    const [modalOpen, setModalOpen] = useState(false)
+    const [status, setStatus] = useState<"success" | "error">("success")
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [group, setGroup] = useState<Group | null>(null)
 
@@ -31,6 +34,13 @@ const SurveyComponent: React.FC = () => {
     const [responses, setResponses] = useState<number[]>([])
 
     const defaultGroup = process.env.NEXT_PUBLIC_DEFAULT_GROUP || 100
+
+    const setModal = (modalStatus: "success" | "error", message: string) => {
+        setLog(message)
+        setStatus(modalStatus)
+        setModalOpen(true)
+        setIsLoading(false)
+    }
 
     useEffect(() => {
         // Retrieve the identity from local storage
@@ -43,6 +53,7 @@ const SurveyComponent: React.FC = () => {
     useEffect(() => {
         const fetchSurveyDetails = async () => {
             if (!surveyId) return
+            setIsLoading(true)
             const surveyResponse = await fetch(`/api/surveys/${surveyId}`)
             const surveyData = await surveyResponse.json()
 
@@ -53,6 +64,7 @@ const SurveyComponent: React.FC = () => {
 
             setSurvey(ipfsData)
             setResponses(new Array(ipfsData.questions.length).fill(-1))
+            setIsLoading(false)
         }
 
         fetchSurveyDetails()
@@ -81,7 +93,7 @@ const SurveyComponent: React.FC = () => {
             }
         })
         if (!membersResponse.ok) {
-            setLog("Failed to get groups.")
+            setModal("error", "Failed to get groups")
             setIsLoading(false)
             return
         }
@@ -92,7 +104,7 @@ const SurveyComponent: React.FC = () => {
             newGroup = new Group(defaultGroup, 20, membersData)
             setGroup(newGroup)
         } else {
-            setLog("Failed to get group members.")
+            setModal("error", "Failed to get group members")
             setIsLoading(false)
             return
         }
@@ -112,6 +124,7 @@ const SurveyComponent: React.FC = () => {
                 const errorMessage = (error as Error).message
                 setLog(errorMessage)
             }
+            setModal("error", "Cannot generate proofs")
             setIsLoading(false)
             return
         }
@@ -133,17 +146,13 @@ const SurveyComponent: React.FC = () => {
             body: JSON.stringify(payload)
         })
         if (!submitResponse.ok) {
-            setLog("Failed to cast vote")
-            setIsLoading(false)
-            throw new Error(`HTTP error! status: ${submitResponse.status}`)
-        }
-        const submitData = await submitResponse.json()
-        if (submitData.transactionHash) {
-            const transactionLink = `https://sepolia.arbiscan.io/tx/${submitData.transactionHash}`
-            setLog(
-                `<span>Success! Click here to see your Transaction in blockchain explorer: </span> <a href="${transactionLink}" target="_blank" rel="noopener noreferrer"> ${transactionLink}</a>`
-            )
-            setIsLoading(false)
+            const errorMessage = await submitResponse.json()
+            setModal("error", JSON.stringify(errorMessage))
+        } else {
+            const submitData = await submitResponse.json()
+            if (submitData.transactionHash) {
+                setModal("success", `tx=${submitData.transactionHash} `)
+            }
         }
     }
 
@@ -184,7 +193,7 @@ const SurveyComponent: React.FC = () => {
                     Submit Survey
                 </button>
             </form>
-            {log && <div dangerouslySetInnerHTML={{ __html: log }} />}
+            <Modal text={log as string} isOpen={modalOpen} status={status} onClose={() => setModalOpen(false)} />
         </div>
     )
 }
