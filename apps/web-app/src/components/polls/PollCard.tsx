@@ -16,7 +16,7 @@ const PollCard: React.FC<PollCardProps> = ({ pollId, text }) => (
             <Link className={styles.submitButton} href={`/demo/polls/${pollId}`}>
                 Vote
             </Link>
-            <Link className={styles.viewButton} href={`/demo/polls/results/${pollId}`}>
+            <Link className={styles.viewButton} href={`/demo/polls/responses/${pollId}`}>
                 View Results
             </Link>
         </div>
