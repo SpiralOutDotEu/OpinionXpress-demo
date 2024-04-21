@@ -68,6 +68,7 @@ const SurveyResponsesComponent: React.FC = () => {
             {!isLoading && surveyDetails && (
                 <div className={styles.surveyContainer}>
                     <h1 className={styles.superTitle}>Responses</h1>
+                    <p className={styles.superDescription}> Responses are retrieved directly from the blockchain smart contracts </p>
                     <h1 className={styles.title}>{surveyDetails.title}</h1>
                     <p className={styles.description}>{surveyDetails.description}</p>
                     {surveyDetails.questions.map((question, questionIndex) => {
