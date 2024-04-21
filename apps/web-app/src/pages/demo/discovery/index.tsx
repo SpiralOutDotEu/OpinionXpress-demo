@@ -18,20 +18,27 @@ export default function Discovery() {
             <div className={styles.discoverySection}>
                 <h1 className={styles.title}>Discover OpinionTrust Beta</h1>
                 <p className={styles.description}>
-                    You've accessed an exclusive link for early testing of OpinionTrust. Here, you can influence
-                    decisions with your feedback while staying anonymous.
+                    Welcome to the exclusive early access of OpinionTrust. During this beta phase, your feedback
+                    directly shapes the decisions of tomorrow while maintaining complete anonymity.
                 </p>
                 <p className={styles.description}>
-                    A unique identity is created for you, kept private in your browser. With it, you can participate in
-                    votes, petitions, and surveys. This identity is yours to control - reset it anytime.
+                    In this demo, you are provided with a temporary digital identity stored privately in your browser,
+                    allowing you to participate in votes, petitions, and surveys. This identity is fully under your
+                    control and can be reset at any moment.
                 </p>
                 <p className={styles.description}>
-                    Our 'zero knowledge' encryption ensures your anonymity is never compromised, and blockchain
-                    technology transparently records your input.
+                    Please note: This process is designed solely for demonstration purposes. When OpinionTrust
+                    transitions to the mainnet, securing an identity will require a formal KYC verification to ensure
+                    each identity corresponds to a unique, verified citizen.
+                </p>
+                <p className={styles.description}>
+                    Leveraging 'zero knowledge' encryption, we guarantee that your anonymity remains intact.
+                    Simultaneously, blockchain technology provides a transparent, immutable record of your
+                    contributions.
                 </p>
                 <p className={styles.specialNote}>
-                    No crypto wallet or tokens needed! Engage with blockchain seamlessly - everything is managed in our
-                    unique process.
+                    No crypto wallet or tokens are required for this demo. Experience the power of blockchain without
+                    complexity—every aspect is streamlined via our unique platform.
                 </p>
                 <div className={styles.linksContainer}>
                     <p className={styles.linkDescription}>Start making an impact now:</p>
