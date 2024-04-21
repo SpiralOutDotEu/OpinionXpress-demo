@@ -56,6 +56,20 @@ export async function getPollsCreatedEvents() {
     }))
 }
 
+export async function getPoll(pollId: string) {
+    // Connect to an Ethereum provider
+    const provider = new ethers.providers.JsonRpcProvider(NETWORK_RPC)
+
+    // Create a new instance of the contract
+    const contract = new ethers.Contract(OPINION_X_PRESS_CONTRACT_ADDRESS as string, opinionXpressABI.abi, provider)
+
+    // Fetch a poll
+    const poll = await contract.polls(BigInt(pollId))
+    const pollResponse = { state: poll[0], yesCounter: poll[1], noCounter: poll[2], text: poll[3] }
+
+    return pollResponse
+}
+
 export async function getGroupMembers(groupId: string) {
     const semaphoreEthers = new SemaphoreEthers(NETWORK_RPC, {
         address: SEMAPHORE_ADDRESS,

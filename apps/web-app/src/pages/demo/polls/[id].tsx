@@ -15,6 +15,7 @@ const ListDetail = () => {
     const [log, setLog] = useState<string | null>(null)
     const [modalOpen, setModalOpen] = useState(false)
     const [status, setStatus] = useState<"success" | "error">("success")
+    const [text, setText] = useState("")
 
     const setModal = (modalStatus: "success" | "error", message: string) => {
         setLog(message)
@@ -25,7 +26,7 @@ const ListDetail = () => {
 
     const defaultGroup = process.env.NEXT_PUBLIC_DEFAULT_GROUP || 100
 
-    const { id: pollId, text } = router.query
+    const { id: pollId } = router.query
 
     useEffect(() => {
         // Retrieve the identity from local storage
@@ -34,6 +35,35 @@ const ListDetail = () => {
             setIdentity(new Identity(storedIdentityJSON))
         }
     }, [])
+
+    useEffect(() => {
+        async function fetchPollData() {
+            try {
+                if (!pollId) return
+                setIsLoading(true)
+                const response = await fetch(`/api/polls/${pollId}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+
+                if (!response.ok) {
+                    throw new Error("Failed to get poll")
+                }
+
+                const data = await response.json()
+                setText(data.text)
+                setIsLoading(false)
+            } catch (error) {
+                if (error instanceof Error) setModal("error", error.message)
+                else setModal("error", `Unknown error on fetching poll ${pollId}`)
+                setIsLoading(false)
+            }
+        }
+
+        fetchPollData()
+    }, [pollId])
 
     const castVote = async (vote: number) => {
         if (!identity) {
