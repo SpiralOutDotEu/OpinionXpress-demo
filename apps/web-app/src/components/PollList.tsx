@@ -1,7 +1,7 @@
 // components/LinksList.js
 
 import { FC } from "react";
-import { Poll } from "../pages/demo/polls";
+import { Poll } from "../pages/demo/polls/index-old";
 
 const LinksList:FC<{items:Poll[]}> = ({items}) => (
     <div className="container mx-auto mt-8">

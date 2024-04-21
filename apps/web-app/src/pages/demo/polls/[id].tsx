@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { Identity } from "@semaphore-protocol/identity"
 import { Group } from "@semaphore-protocol/group"
 import { generateProof } from "@semaphore-protocol/proof"
+import styles from "../../../styles/Poll.module.css"
 import Modal from "../../../components/Modal"
 
 const ListDetail = () => {
@@ -122,22 +123,20 @@ const ListDetail = () => {
     }
 
     return (
-        <div className="container mx-auto mt-8">
+        <div className={styles.container}>
             {isLoading && (
                 <div className="loading-overlay">
                     <div className="loading-spinner"></div>
                 </div>
             )}
-            <div className="flex flex-col items-center">
-                <h1 className="text-3xl font-bold">Poll - {pollId}</h1>
-                <br />
-                <h2 className="text-2xl font-bold">{text}</h2>
+            <div className={styles.header}>
+                <h1 className={styles.title}>Poll - {pollId}</h1>
+                <h2 className={styles.subtitle}>{text}</h2>
             </div>
-            {/* <CenteredForm /> */}
-            <button className="btn-green" onClick={() => castVote(1)} disabled={isLoading}>
+            <button className={`${styles.btn} ${styles.btnGreen}`} onClick={() => castVote(1)} disabled={isLoading}>
                 Vote YES on poll {pollId}
             </button>
-            <button className="btn-red" onClick={() => castVote(0)} disabled={isLoading}>
+            <button className={`${styles.btn} ${styles.btnRed}`} onClick={() => castVote(0)} disabled={isLoading}>
                 Vote NO on poll {pollId}
             </button>
             <Modal text={log as string} isOpen={modalOpen} status={status} onClose={() => setModalOpen(false)} />
