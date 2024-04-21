@@ -4,8 +4,9 @@ pragma solidity ^0.8.4;
 import "@semaphore-protocol/contracts/interfaces/ISemaphore.sol";
 import "@semaphore-protocol/contracts/interfaces/ISemaphoreVerifier.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "./Survey.sol";
 
-contract OpinionXpress is Ownable {
+contract OpinionXpress is Ownable, Survey {
     ISemaphore public semaphore;
     ISemaphoreVerifier public verifier;
 
@@ -140,5 +141,27 @@ contract OpinionXpress is Ownable {
         uint8[] calldata proofPathIndices
     ) external onlyGroupAdmin {
         semaphore.updateMember(groupId, identityCommitment, newIdentityCommitment, proofSiblings, proofPathIndices);
+    }
+
+    /// Survey
+    function createSurvey(
+        string memory ipfsLink,
+        uint256 questionsCount,
+        uint256 optionsPerQuestion,
+        uint256[] calldata groupIds
+    ) public onlyOwner {
+        super._createSurvey(ipfsLink, questionsCount, optionsPerQuestion, groupIds);
+    }
+
+    function submitSurveyResponse(
+        uint256 surveyId,
+        uint256 encodedResponses,
+        uint256 merkleTreeRoot,
+        uint256 nullifierHash,
+        uint256[8] calldata proof,
+        uint256 groupId
+    ) public {
+        verifier.verifyProof(merkleTreeRoot, nullifierHash, encodedResponses, surveyId, proof, groups[groupId].depth);
+        super._submitResponse(surveyId, encodedResponses, nullifierHash, groupId);
     }
 }

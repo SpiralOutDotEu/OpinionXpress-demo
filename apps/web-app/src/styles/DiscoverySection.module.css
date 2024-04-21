@@ -1,0 +1,75 @@
+.discoverySection {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+}
+
+.title {
+    font-size: 2rem; /* 4xl in Tailwind */
+    font-weight: bold;
+    color: #1a202c; /* gray-900 in Tailwind */
+    margin-bottom: 24px; /* mb-6 in Tailwind */
+}
+
+.description {
+    font-size: 1.125rem; /* lg in Tailwind */
+    color: #718096; /* gray-600 in Tailwind */
+    margin-bottom: 16px; /* mb-4 in Tailwind */
+}
+
+.specialNote {
+    font-size: 1.125rem;
+    color: #38a169; /* green-600 in Tailwind */
+    font-weight: 600; /* semibold in Tailwind */
+    margin-bottom: 16px;
+}
+
+.resetButton {
+    margin: 24px;
+    border-radius: 8px; /* rounded in Tailwind */
+    background-color: #e53e3e; /* red-500 in Tailwind */
+    padding: 12px 24px; /* px-6 py-3 in Tailwind */
+    font-size: 1.25rem; /* text-xl in Tailwind */
+    font-weight: 500; /* medium in Tailwind */
+    color: white;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.resetButton:hover {
+    background-color: #c53030; /* red-600 in Tailwind */
+    /* focus ring styles if needed */
+}
+
+.linksContainer {
+    margin-top: 20px; /* Additional styling for the links container */
+}
+
+.linkDescription {
+    font-size: 1.125rem;
+    color: #1a202c; /* Adjust the color to match the design */
+    margin-bottom: 10px;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Adjust the gap as needed */
+    margin-bottom: 20px; /* Space below the links before the reset button */
+}
+
+.linkButton {
+    display: inline-block;
+    background-color: #4FD1C5; /* Example color */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.linkButton:hover {
+    background-color: #38B2AC; /* Darker shade for hover effect */
+}

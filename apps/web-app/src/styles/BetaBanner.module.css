@@ -1,0 +1,19 @@
+.banner {
+    background-color: #f8f9fa; /* Light grey for discreet appearance */
+    color: #6c757d; /* Dark grey text for readability */
+    padding: 4px 16px;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .bannerText {
+    font-size: 0.875rem; /* Smaller font size for discreteness */
+    margin-left: 8px; /* Space between icon and text */
+  }
+  
+  .icon {
+    font-size: 1.2rem; /* Icon size */
+  }

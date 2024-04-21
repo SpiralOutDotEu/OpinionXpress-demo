@@ -1,0 +1,78 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    z-index: 1000;
+}
+
+.brandContainer {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.brandIcon {
+    font-size: 2rem;
+    margin-right: 0.5rem;
+}
+
+.logo {
+    font-weight: bold;
+    color: #333;
+}
+
+.menuButton {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdownMenu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    z-index: 1000;
+}
+
+.menuActive {
+    display: flex;
+    flex-direction: column;
+}
+
+.menuItem {
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    color: #333333;
+}
+
+.menuItem:hover {
+    background-color: #f6f6f6;
+}
+
+/* Responsive styling */
+@media (min-width: 600px) {
+    .dropdownMenu {
+        display: flex;
+        flex-direction: row;
+        position: static;
+        border: none;
+    }
+    .menuButton {
+        display: none;
+    }
+    .menuItem {
+        padding: 0.5rem 1rem;
+    }
+    .menuActive {
+        display: flex;
+    }
+}

@@ -1,0 +1,43 @@
+.notificationBar {
+  position: fixed; /* Stick to the top of the screen */
+  top: 0; /* Position at the very top */
+  left: 0;
+  right: 0;
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10000; /* Make sure it's above all other content */
+  transform: translateY(-100%); /* Hide offscreen */
+  transition: transform 0.5s ease-in-out;
+}
+
+.visible {
+  transform: translateY(0); /* Slide in */
+}
+
+.icon {
+  margin-right: 12px;
+  font-size: 1.5rem;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 8px;
+  margin-left: 12px;
+}
+
+/* Optional: Add a slight hover effect for the close button */
+.closeButton:hover {
+  opacity: 0.8;
+}

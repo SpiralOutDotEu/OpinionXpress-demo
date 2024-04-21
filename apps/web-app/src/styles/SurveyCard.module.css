@@ -1,0 +1,67 @@
+.card {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    transition: box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cardContent {
+    flex: 1;
+}
+
+.title {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding-top: 10px;
+  }
+
+.submitButton,
+.viewButton {
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submitButton {
+    background-color: #007bff;
+    color: white;
+}
+
+.submitButton:hover {
+    background-color: #0056b3;
+}
+
+.viewButton {
+    background-color: #28a745;
+    color: white;
+}
+
+.viewButton:hover {
+    background-color: #1e7e34;
+}
