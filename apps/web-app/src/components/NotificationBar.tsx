@@ -12,7 +12,7 @@ const NotificationBar: React.FC<NotificationBarProps> = ({ message }) => {
     useEffect(() => {
         if (message) {
             setShow(true)
-            const timer = setTimeout(() => setShow(false), 5000) 
+            const timer = setTimeout(() => setShow(false), 2500) 
             return () => clearTimeout(timer)
         }
         return undefined
