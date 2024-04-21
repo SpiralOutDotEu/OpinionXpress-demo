@@ -11,12 +11,12 @@ const NotificationBar: React.FC<NotificationBarProps> = ({ message }) => {
 
     useEffect(() => {
         if (message) {
-            setShow(true) // Show notification
-            const timer = setTimeout(() => setShow(false), 15000) // Auto-hide after 5 seconds
+            setShow(true)
+            const timer = setTimeout(() => setShow(false), 5000) 
             return () => clearTimeout(timer)
         }
         return undefined
-    }, [message]) // Depend on message to trigger effect
+    }, [message])
 
     return (
         <div className={`${styles.notificationBar} ${show ? styles.visible : ""}`}>
