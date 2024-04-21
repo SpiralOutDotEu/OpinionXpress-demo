@@ -20,7 +20,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             if (!encodedResponses || !merkleTreeRoot || !nullifierHash || !surveyId || !proof || !groupId) {
                 res.status(400).json({ message: "Missing parameter" })
             }
-            console.log("submitSurveyResponse data: ", surveyId, encodedResponses, merkleTreeRoot, nullifierHash, proof, groupId)
             try {
                 const transactionHash = await submitSurveyResponse(
                     surveyId,
